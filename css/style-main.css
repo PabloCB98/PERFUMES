@@ -7,7 +7,7 @@ body{
     color: white; /*color por defecto de las letras de todo el body*/
     font-family: 'Montserrat', sans-serif; /*fuente sacada de Google Fonts  para toda la página*/
     overflow-x: hidden;/*con esto evito el scroll horizontal, ya que cualquier cosa que sobrepase el ancho se queda invisible*/
-    background-image: url('/imagenes/varios/fondos/fondoMarron1.jpg'); /*inserto la imagen de fondo*/
+    background-image: url('../imagenes/varios/fondos/fondoMarron1.jpg'); /*inserto la imagen de fondo*/
     background-size: cover;/*hace que la imagen en este caso ocupe todo el body*/
 }
 
@@ -286,7 +286,7 @@ desde un estado inicial a uno final, o también a través de pasos intermedios*/
 /*cambios aplicados al bloque que aparece sobre el overlay*/
 .modal {
     font-weight: 500;
-    background-image: url(/imagenes/varios/fondos/fondoMarron4.jpg);
+    background-image: url(../imagenes/varios/fondos/fondoMarron4.jpg);
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: 20px;
     padding: 2rem;
