@@ -1,0 +1,138 @@
+body{
+    margin: 0; /*que no tenga márgenes por ninguna parte */
+    display: flex; /*le damos flexbox*/
+    flex-direction: column; /*los contenedores se alinean en columnas, uno debajo del otro*/
+    align-items: center; /*los contenedores se centran horizontalmente, es decir, las columnas se van al medio*/
+    min-height: 100vh; /*hace que ocupe el 100% de la pantalla como mínimo, por lo que puede crecer. 1vh es el 1% de la altura total del navegador*/
+    color: white; /*color por defecto de las letras de todo el body*/
+    font-family: 'Montserrat', sans-serif; /*fuente sacada de Google Fonts  para toda la página*/
+    overflow-x: hidden;/*con esto evito el scroll horizontal, ya que cualquier cosa que sobrepase el ancho se queda invisible*/
+    background-image: url('/imagenes/varios/fondos/fondoMarron1.jpg'); /*inserto la imagen de fondo*/
+    background-size: cover;/*hace que la imagen en este caso ocupe todo el body*/
+}
+
+.titulo-conjunto {
+    width: calc(100% - 100px); /*hace que el ancho de esto deje 50px a cada lado, es para la línea de debajo del título, simple estética*/
+    border-bottom: 2px solid rgba(255, 255, 255, 0.574);/*borde inferior de 2px de ancho, una línea sólida y con ese color y transparencia*/
+    padding-bottom: 20px;/*espacio inferior entre la parte inferior del texto y la línea estética*/
+    margin: 0 50px;/*deja margenes de 0px arriba y abajo y de 50px en izquierda y derecha*/
+    text-align: center; /*el texto se alinea hacia el centro de la pantalla*/
+}
+
+#titulo-principal {
+    display: block;/*es una obligación de guardar una fila para este bloque, ocupa el 100% del contenedor padre*/
+    text-align:center;
+    font-size: 80px; /*cambiamos el tamaño del texto*/
+    color: rgba(255, 255, 255, 0.733);/*le damos un nuevo color al texto*/
+    letter-spacing: 15px; /*le damos un espacio extra entre letras*/
+    text-shadow: 0px 4px 15px rgba(255, 255, 255, 0.304);/*efecto de soba del texto, 0px para qu no se mueva hacia los lados, 4px la sobra se 
+                                                            desplaza 4px hacia abajo y el 15px es el blur, como de borrosa es la sombra*/
+    margin: 60px auto 0 auto;/*lo empuja 60px hacia abajo desde el objeto superior, auto para que calcule automaticamente ek espacio derecho, 0 para
+    que no deje espacio inferior y no lo empuje desde abajo y auto para lo mismo que en derecha, en izquierda*/
+    text-transform: uppercase; /*el texto va a ir siempre en mayusculas*/
+    padding-bottom: 20px;/*espacio inferior desde el texto hasta el borde del contenedor*/
+
+    width: calc(100% - 200px);/*el ancho será de el total del ancho del navegador -100px a cada lado*/
+    max-width: none; /*el ancho maximo no está definido*/
+
+}
+
+.contenedor-descripcion {
+    background-color: rgba(255, 255, 255, 0);/*definimos solo el color del fondo*/
+    backdrop-filter: blur(10px);/*emborrona lo que hay detrás del elemento*/
+    border: 0.5px solid rgba(255, 255, 255, 0.403);
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2); /*sombra alrededor de la caja, no se mueve hacia los lados, está centrada, se desplaza 8px hacia abajo y el el blur es de 30px*/
+    color: #ffffffa7;
+    width: 90%; /*ocpa el 90% del ancho de su padre, el body, lo demás queda vacío*/
+    text-align: center;
+    margin: 20px auto 70px auto;
+    max-width: 700px; /*se puede estirar todo lo que quiera pero no más de 700px*/
+    margin-top: 50px;
+    transition: transform 0.8s ease-in-out, box-shadow 1s ease-in-out;/*transición para el :hover. Tarda 0.8s en completar la transform indicada en el hover. Empieza lenta, acelera en medio y se hace lenta al final otra vez. Lo mismo con la sombra*/
+    cursor: default; /*no cambia a mano, se queda en flecha el ratón al pasar por encima de esta caja*/
+}
+.contenedor-descripcion:hover{
+    transform: scale(1.1);/*el elemento crece un 10% de su tamaño original*/
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.794); /*aplicamos la sombra a la caja en los tiempos anteriores*/
+}
+
+
+#titulo-descripcion{
+    font-size: 40px;
+    margin-bottom: 20px;
+    font-weight: 600;
+
+}
+
+#descripcion{
+    margin-top: 70px;
+    font-size: 24px;
+    line-height: 1.6; /*es el interlienado dependiendo del tamaño de la fuente*/
+    color: white;
+    text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.botones-navegacion{
+    background: rgba(4, 4, 4, 0.44); /*color fondo de nuestra cajita*/
+    border: 1px solid rgba(255, 255, 255, 0.2); /*fino borde de la cajita*/
+    border-radius: 999px; /*el border-radius nos hace las esquinas redondeadas, 999px lo hace muy redondo*/
+    margin-top: 100px;
+    padding: 4px; /*el padding es la separación interior entre el texto y los bordes de la caja que lo contiene*/
+    display: block; /*le volvemos a dar la propiedad flexbox*/
+    gap: 10px;/*añadimos 10px de separación entre los elementos*/
+}
+
+.botones-navegacion a { /*todos los enlaces dentro de botones-navegacion*/
+    text-decoration: none; /*le quita el subrayado de los enlaces que tienen por defecto*/
+    color: rgba(255, 255, 255, 0.5); /*color del texto de los enlaces*/
+    font-size: 14px; 
+    font-weight: 500; /*grosor de la letra, 500 es un grosor medio*/
+    font-family: Montserrat;
+    letter-spacing: 0.02em;/*espacio entre letras, en este caso muy pequeño*/
+    padding: 7px 20px; /*espacio interior, 7px desde el texto hasta el borde superior e inferior y 20 a los laterales*/
+    border-radius: 999px; /*forma redonda de la caja que contiene cada enlace*/
+    cursor: pointer; /*aseguramos que al pasar el ratón por encima cambie de flecha a mano, es una buena práctica*/
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, padding 0.25s ease; /*le decimos al navegador que los cambios ocurran en estos tiempos y no de golpe
+    al crear el efevto :hover posteriormente. El fondo cambiará en 0.25s, ease hace que la animacion empiece rapido y termine lenta, le da suavidad.
+    color lo mismo, el texto cambiará de color en 0.25s y de forma suave, transform hace que al crecer el botón tarde 0.25s se forma suave y para que se ensanche el botón
+    con el padding lo haga en 0.25s y suave*/    
+}
+    
+
+/*definimos lo que pasa al pasar el raton por encima, que lo hace en las condiciones anteriores de transition*/
+.botones-navegacion a:hover{
+    background: rgba(255, 255, 255, 0.18);
+    color: white;
+    transform: scale(1.06);/*crece de tamaño con un zoom suave como hemos descrito en transition, un 6% en concreto*/
+    padding: 7px 24px; /*aumenta el espacio interior arriba y abajo de 4 a 7px y a los lados de 20 a 24px*/
+}
+
+.email{
+    text-decoration: none;
+    color: rgb(60, 1, 116);
+}
+
+.footer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;/*divide el footer en 3 columnas del mismo tamaño y cada una ocupa 1 fracción del espacio total*/
+    padding: 10px 50px; /* Añadimos margen a los lados para que no se pegue a los bordes */
+    box-sizing: border-box;
+    margin-top: auto; /* Esto lo empuja al final */
+    background: rgba(0, 0, 0, 0.656); /* Fondo oscuro para que el texto blanco resalte */
+    color: rgba(255, 255, 255, 0.644);
+    font-size: 12px;
+    width: 100%;
+}
+
+/*ubicamos cada parte en una zona de la pantalla horizontalmente*/
+#nombre-footer { 
+    text-align: left; 
+}
+#datos-proyecto-footer { 
+    text-align: center; 
+}
+#colegio-footer { 
+    text-align: right; 
+}

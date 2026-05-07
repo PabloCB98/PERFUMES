@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE catalogo_perfumes SYSTEM "perfumes.dtd">
+
+<!-- USO DE LA IA -->
+<!-- La he usado para que me diese una descripción de cada perfume de una forma adecuada y breve, también le he
+pedido ayuda para que me diese las notas y familias olfativas, ya que yo tengo los perfumes, pero no me sé las notas ni los precios actualizados-->
+<!-- Bastante info sacada de la web de Fragántica-->
+<!-- Debería estar todo con un léico correcto y sin faltas ortográficas, ya que he pasado las descripciones por IA para que las tildes sean cambiadas por sus entidades y evitar errores,
+unque el xml esté en UTF-8 y no debería dar errores, aún más en los navegadores principales que usaremos. Las opiniones personales las he dejado tal cual las he escrito, como he dicho,
+con el UTF-8 no debería dar fallo -->
+
+<catalogo_perfumes>
+
+    <!-- Tengo varias etiquets anidadas, dentro del catálogo, tengo la etiqueta de temporada, verano/invierno, y dentro de la de temporada la de momento del día, día/noche, 
+    todo explicado en el dtd-->
+
+    <temporada tipo="Invierno">
+
+        <momento_dia tipo="Dia">
+
+            <!-- He decidido que el id de cada perfume será perfume- número. No van seguidos porque he cambiado alguno a otra temporada o momento del día, según mis gustos
+            Todo está bastante claro, es una repetición todo el rato de lo mismo, cambiando los valores de las etiquetas-->
+
+            <perfume id="perfume-001">
+                <nombre>Hayaati</nombre>
+                <marca>Lattafa</marca>
+                <tipo>Eau de Parfum</tipo>
+                <familia_olfativa>Aromático Amaderado</familia_olfativa>
+                <genero>Unisex</genero>
+                <notas>
+                    <salida>Manzana, Bergamota</salida>
+                    <corazon>Canela, Notas Amaderadas</corazon>
+                    <fondo>Almizcle, Vainilla</fondo>
+                </notas>
+                <precio moneda="EUR">20.00</precio>
+                <imagen>imagenes/invierno/dia/hayaati.png</imagen>
+                <descripcion>
+                    Una fragancia frutal-especiada que combina la frescura de la manzana con la calidez de la canela y un 
+                    fondo almizcleado de vainilla. Su perfil dulce y accesible lo convierte en una opci&#243;n perfecta para el d&#237;a de invierno, 
+                    c&#243;moda y envolvente sin ser excesiva.
+                </descripcion>
+                <opinion_personal>La usé mucho en su momento, el primer perfume árabe que me compré. Huele muy bien pero siento que no proyecta mucho ni dura lo suficiente</opinion_personal>
+                <mi_nota>6/10</mi_nota>
+            </perfume>
+
+            <perfume id="perfume-003">
+                <nombre>Tender Amber</nombre>
+                <marca>Zara</marca>
+                <tipo>Eau de Parfum</tipo>
+                <familia_olfativa>Oriental Floral</familia_olfativa>
+                <genero>Masculino</genero>
+                <notas>
+                    <salida>Frutas Exóticas, Grosella Negra</salida>
+                    <corazon>Rosa, Tuberosa</corazon>
+                    <fondo>Ámbar</fondo>
+                </notas>
+                <precio moneda="EUR">18.00</precio>
+                <imagen>imagenes/invierno/dia/tender.png</imagen>
+                <descripcion>
+                    Una fragancia sorprendentemente rica para su precio, con una apertura frutal y jugosa que evoluciona 
+                    hacia un coraz&#243;n floral de rosa y tuberosa sobre un fondo c&#225;lido de &#225;mbar. Perfecta para d&#237;as de invierno, 
+                    deja una estela dulce y acogedora que recuerda a Erba Pura de Xerjoff.                
+                </descripcion>
+                <opinion_personal>
+                    Muy buen perfume a un precio súper barato. Tiene su parecido a Erba Pura. En ropa dura lo suficiente y huele bien, la uso actualmente para 
+                    ir al gimnasio, al pádel o si voy a salir de cada poco rato. Personalmente no la pondria en invierno, sinó en verano/día
+                </opinion_personal>
+                <mi_nota>5.5/10</mi_nota>
+            </perfume>
+
+        </momento_dia>
+
+        <momento_dia tipo="Noche">
+
+            <perfume id="perfume-004">
+                <nombre>Liquid Brun</nombre>
+                <marca>French Avenue</marca>
+                <tipo>Eau de Parfum</tipo>
+                <familia_olfativa>Amaderado Gourmand</familia_olfativa>
+                <genero>Unisex</genero>
+                <notas>
+                    <salida>Canela, Flor de Naranjo, Cardamomo, Bergamota</salida>
+                    <corazon>Vainilla Bourbon, Elemi</corazon>
+                    <fondo>Praliné, Ambroxan, Palo de Guayaco, Almizcle</fondo>
+                </notas>
+                <precio moneda="EUR">30.00</precio>
+                <imagen>imagenes/invierno/noche/liquid.jpeg</imagen>
+                <descripcion>
+                    Un gourmand amaderado lanzado en 2024 que combina especias c&#225;lidas con vainilla cremosa y un fondo rico de pralin&#233; 
+                    y ambroxan. Considerado dupe del PDM Altha&#239;r, seduce con una estela dulce, especiada y moderna. Ideal para noches de invierno, 
+                    con una proyecci&#243;n de hasta 12 horas.
+                </descripcion>
+                <opinion_personal>La mejor árabe que me he comprado, dura muchísimo y el olor es de lo mejorcito que tengo, un dupe de un perfume muy conocido. Nada mñas que decir, es TOP</opinion_personal>
+                <mi_nota>9/10</mi_nota>
+            </perfume>
+
+            <perfume id="perfume-005">
+                <nombre>Rifaaqat</nombre>
+                <marca>Paris Corner</marca>
+                <tipo>Eau de Parfum</tipo>
+                <familia_olfativa>Oriental Especiado</familia_olfativa>
+                <genero>Unisex</genero>
+                <notas>
+                    <salida>Pimienta Negra, Elemi, Pimienta Rosa</salida>
+                    <corazon>Olibano, Azafrán</corazon>
+                    <fondo>Vainilla, Cedro</fondo>
+                </notas>
+                <precio moneda="EUR">25.00</precio>
+                <imagen>imagenes/invierno/noche/rifaaqat.jpeg</imagen>
+
+                <descripcion>
+                    Una fragancia especiada y misteriosa inspirada en YSL Babycat, con una apertura picante de pimientas y elemi que 
+                    da paso a azafr&#225;n y olibano. El fondo de vainilla y cedro aporta una calidez adictiva. Perfecta para noches fr&#237;as de invierno, 
+                    con una proyecci&#243;n resinosa y memorable.
+                </descripcion>
+                <opinion_personal>La quería probar y me la regalaron, huele bien pero no es para todos los gustos, muy empalagosa. Personalmente a mi me gusta aunque no la use apenas. Dura mucho, como todas las árabes</opinion_personal>
+                <mi_nota>6.5/10</mi_nota>
+
+            </perfume>
+
+            <perfume id="perfume-006">
+                <nombre>Momento</nombre>
+                <marca>Riiffs</marca>
+                <tipo>Extrait de Parfum</tipo>
+                <familia_olfativa>Amaderado Especiado</familia_olfativa>
+                <genero>Unisex/Masculino</genero>
+                <notas>
+                    <salida>Azúcar, Azafrán, Mandarina</salida>
+                    <corazon>Tonka, Rosa de Damasco, Oud</corazon>
+                    <fondo>Amberwood, Caramelo, Cedro</fondo>
+                </notas>
+                <precio moneda="EUR">28.00</precio>
+                <imagen>imagenes/invierno/noche/momento.jpg</imagen>
+
+                <descripcion>
+                    Un extrait de parfum lujoso que abre con mandarina y azafr&#225;n sobre un coraz&#243;n de rosa y oud, evolucionando hacia un fondo de caramelo, 
+                    amberwood y cedro. Estela c&#225;lida y sofisticada, considerada por muchos una alternativa de calidad al Montale Arabians Tonka. Perfecta 
+                    para noches de invierno.
+                </descripcion>
+                <opinion_personal>Muy buena compra y MUY barata. Huele y dura mucho, sin llegar a empalagar, algo raro en perfumes árabes, recomendado al 100%</opinion_personal>
+                <mi_nota>6.75/10</mi_nota>
+
+            </perfume>
+
+
+            <perfume id="perfume-008">
+                <nombre>Club de Nuit Untold</nombre>
+                <marca>Armaf</marca>
+                <tipo>Eau de Parfum</tipo>
+                <familia_olfativa>Oriental Ambarino</familia_olfativa>
+                <genero>Unisex</genero>
+                <notas>
+                    <salida>Azafrán, Jazmín</salida>
+                    <corazon>Amberwood, Ambra Gris</corazon>
+                    <fondo>Resina de Abeto, Cedro</fondo>
+                </notas>
+                <precio moneda="EUR">35.00</precio>
+                <imagen>imagenes/invierno/noche/untold.jpeg</imagen>
+
+                <descripcion>
+                    Lanzado en 2022, es un dupe orientado al ADN del Baccarat Rouge 540, con una nube dulce y ambarina de amberwood y ambra gris sobre un fondo resinoso 
+                    de cedro. Su proyecci&#243;n es bestia en las primeras horas, convirti&#233;ndose en un sillage de piel suave y duradero. Noche de invierno por excelencia.
+                </descripcion>
+                <opinion_personal>Es el perfume perfecto para invierno, tanto de día como de noche, incluso en noches de verano lo usaría sin abusar de él, de lo mejorcito</opinion_personal>
+                <mi_nota>7.75/10</mi_nota>
+
+            </perfume>
+
+            <perfume id="perfume-009">
+                <nombre>212 VIP Black</nombre>
+                <marca>Carolina Herrera</marca>
+                <tipo>Eau de Parfum</tipo>
+                <familia_olfativa>Aromático Fougère</familia_olfativa>
+                <genero>Masculino</genero>
+                <notas>
+                    <salida>Absenta, Anís, Hinojo</salida>
+                    <corazon>Lavanda</corazon>
+                    <fondo>Cáscara de Vainilla Negra, Almizcle</fondo>
+                </notas>
+                <precio moneda="EUR">95.00</precio>
+                <imagen>imagenes/invierno/noche/vip.jpg</imagen>
+
+                <descripcion>
+                    Una fragancia masculina y seductora para la noche, lanzada en 2017. Su apertura herbal de absenta y an&#237;s da paso a una lavanda especiada y un fondo 
+                    profundo de vainilla negra y almizcle. Perfecta para salidas nocturnas en invierno, con una energ&#237;a juvenil y confiada que atrae miradas.
+                </descripcion>
+                <opinion_personal>Nada que decir de este perfume, calidad TOP, duración buenísima y olor perfecto para gente joven</opinion_personal>
+                <mi_nota>7.5/10</mi_nota>
+
+            </perfume>
+
+            <perfume id="perfume-010">
+                <nombre>Instant Crush</nombre>
+                <marca>Mancera</marca>
+                <tipo>Eau de Parfum</tipo>
+                <familia_olfativa>Oriental Floral</familia_olfativa>
+                <genero>Unisex</genero>
+                <notas>
+                    <salida>Azafrán, Jengibre, Mandarina Siciliana, Bergamota Siciliana</salida>
+                    <corazon>Amberwood, Rosa Marroquí, Jazmín Egipcio, Pachulí Indonesio</corazon>
+                    <fondo>Vainilla de Madagascar, Almizcle Blanco, Sándalo, Musgo de Roble</fondo>
+                </notas>
+                <precio moneda="EUR">145.00</precio>
+                <imagen>imagenes/invierno/noche/crush.jpg</imagen>
+
+                <descripcion>
+                    Un oriental floral creado por Pierre Montale en 2019 que combina c&#237;tricos especiados con coraz&#243;n de rosa y jazm&#237;n sobre un fondo de s&#225;ndalo, 
+                    vainilla y musgo de roble. A menudo comparado con el ADN del Baccarat Rouge 540, es una fragancia unisex sofisticada y c&#243;moda para noches de invierno.
+                </descripcion>
+                <opinion_personal>
+                    Mi joya de la corona, mi primer perfume nicho y el que más he usado. Es mi olor característico. Es ya la segunda botella que me compro y la tengo casi terminada, nunca me puede faltar. La uso en 
+                    invierno a cualquier hora e incluso en verano de noche, sin abusar de ella
+                </opinion_personal>
+                <mi_nota>10/10</mi_nota>
+
+            </perfume>
+
+        </momento_dia>
+
+    </temporada>
+
+
+    <temporada tipo="Verano">
+
+        <momento_dia tipo="Dia">
+
+            <perfume id="perfume-011">
+                <nombre>Le Beau EDT</nombre>
+                <marca>Jean Paul Gaultier</marca>
+                <tipo>Eau de Toilette</tipo>
+                <familia_olfativa>Aromático Amaderado</familia_olfativa>
+                <genero>Masculino</genero>
+                <notas>
+                    <salida>Bergamota</salida>
+                    <corazon>Coco</corazon>
+                    <fondo>Tonka, Vainilla</fondo>
+                </notas>
+                <precio moneda="EUR">80.00</precio>
+                <imagen>imagenes/verano/dia/beau.jpeg</imagen>
+
+                <descripcion>
+                    Fragancia fresca y tropical lanzada en 2019, perfecta para los d&#237;as de verano. Su bergamota chispeante da paso a un coraz&#243;n cremoso de coco que lo hace 
+                    ligero y playero, mientras que el fondo de tonka y vainilla a&#241;ade una calidez suave y agradable. F&#225;cil de llevar y muy apto para el d&#237;a.
+                </descripcion>
+                <opinion_personal>Mi perfume de diseñador favorito quizás, por su versatilidad. Se puede usar en verano a cualquier hora e incluso en invierno por el día, también llevo 3 botellas de esta</opinion_personal>
+                <mi_nota>9.25/10</mi_nota>
+
+            </perfume>
+
+            <perfume id="perfume-012">
+                <nombre>CK One</nombre>
+                <marca>Calvin Klein</marca>
+                <tipo>Eau de Toilette</tipo>
+                <familia_olfativa>Cítrico Aromático</familia_olfativa>
+                <genero>Masculino</genero>
+                <notas>
+                    <salida>Limón, Bergamota, Mandarina, Piña, Cardamomo, Papaya</salida>
+                    <corazon>Jazmín, Violeta, Rosa, Nuez Moscada, Muguete, Fresia</corazon>
+                    <fondo>Almizcle, Cedro, Té Verde, Sándalo, Musgo de Roble, Ámbar</fondo>
+                </notas>
+                <precio moneda="EUR">45.00</precio>
+                <imagen>imagenes/verano/dia/ck.jpeg</imagen>
+
+                <descripcion>
+                    El ic&#243;nico unisex de 1994 creado por Alberto Morillas, un cl&#225;sico atemporal de la perfumer&#237;a moderna. Fresco, limpio y c&#237;trico con un coraz&#243;n floral suave 
+                    y un fondo amaderado y musgoso. Un must-have para los d&#237;as de verano, ligero y refrescante, perfecto a cualquier hora del d&#237;a.
+                </descripcion>
+                <opinion_personal>Colonia básica, para cualquier uso. Para ir al gimnasio, a hacer deporte, salir por el día en verano...sirve para todo</opinion_personal>
+                <mi_nota>6.50/10</mi_nota>
+
+            </perfume>
+
+            <perfume id="perfume-013">
+                <nombre>Le Sel d'Issey</nombre>
+                <marca>Issey Miyake</marca>
+                <tipo>Eau de Toilette</tipo>
+                <familia_olfativa>Acuático Amaderado</familia_olfativa>
+                <genero>Masculino</genero>
+                <notas>
+                    <salida>Sal Marina, Jengibre</salida>
+                    <corazon>Alga Marina, Vetiver</corazon>
+                    <fondo>Cedro, Musgo de Roble</fondo>
+                </notas>
+                <precio moneda="EUR">80.00</precio>
+                <imagen>imagenes/verano/dia/issey.jpeg</imagen>
+                <descripcion>
+                    Lanzado en 2024 y creado por Quentin Bisch, esta fragancia acu&#225;tica captura la esencia de un viaje marinero. La sal y el jengibre abren con 
+                    frescura vibrante, el alga y el vetiver a&#241;aden profundidad mineral, y el fondo de cedro y musgo de roble aporta car&#225;cter. Ideal para d&#237;as de verano 
+                    c&#225;lidos.
+                </descripcion>
+                <opinion_personal>
+                    Es el último perfume que me he comprado hace nada, un mes.Anque sea EDT, dura muchísimo. Creo que hasta ahora es el mejor que he encontrado para el día en verano,
+                    huele muy original, a sal, un olor extraño pero genial. La pongo incluso por encima de la Kenzo Marine, que es más juvenil.
+                </opinion_personal>
+                <mi_nota>9.5/10</mi_nota>
+
+            </perfume>
+
+            <perfume id="perfume-014">
+                <nombre>Kenzo Homme Marine</nombre>
+                <marca>Kenzo</marca>
+                <tipo>Eau de Toilette</tipo>
+                <familia_olfativa>Acuático Amaderado</familia_olfativa>
+                <genero>Masculino</genero>
+                <notas>
+                    <salida>Notas Marinas</salida>
+                    <corazon>Ylang-Ylang</corazon>
+                    <fondo>Sándalo, Almizcle</fondo>
+                </notas>
+                <precio moneda="EUR">54.99</precio>
+                <imagen>imagenes/verano/dia/marine.jpg</imagen>
+
+                <descripcion>
+                    Lanzado en 2023 y creado por Quentin Bisch, Kenzo Homme Marine es una versi&#243;n m&#225;s fresca y relajada del Kenzo Homme Intense. Abre con un acorde marino 
+                    soleado y salino, con un coraz&#243;n cremoso y sofisticado de ylang-ylang que lo distingue de otros acu&#225;ticos. El fondo de s&#225;ndalo y almizcle aporta calidez 
+                    y masculinidad. Perfecto para d&#237;as de verano al aire libre, con una duraci&#243;n de 6-7 horas.
+                </descripcion>
+                <opinion_personal>Al igual que el Le Sel D'ISSEY, dura muchísimo para ser EDT. Olor muy fresco y veraniego, con toques de sal pero más afrutado, un sí o sí para verano, os lo recomiendo. Es un poco juvenil</opinion_personal>
+                <mi_nota>8.75/10</mi_nota>
+                
+            </perfume>
+
+            <perfume id="perfume-007">
+                <nombre>Amber Oud White Edition</nombre>
+                <marca>Al Haramain</marca>
+                <tipo>Eau de Parfum</tipo>
+                <familia_olfativa>Chypre Floral</familia_olfativa>
+                <genero>Masculino</genero>
+                <notas>
+                    <salida>Bergamota, Naranja</salida>
+                    <corazon>Jazmín, Rosa, Fresia, Ciclamen</corazon>
+                    <fondo>Pachulí, Almizcle, Vetiver, Vainilla</fondo>
+                </notas>
+                <precio moneda="EUR">40.00</precio>
+                <imagen>imagenes/verano/dia/white.jpeg</imagen>
+
+                <descripcion>
+                    Considerado un dupe muy cercano del Chanel Coco Mademoiselle, esta fragancia chypre floral lanzada en 2022 combina c&#237;tricos frescos con un 
+                    coraz&#243;n floral elegante y un fondo c&#225;lido de pachul&#237; y vainilla. Proyecci&#243;n notable y gran duraci&#243;n para una noche de invierno sofisticada.
+                </descripcion>
+                <opinion_personal>La compré por equivocación, quería la Gold Edition. No la recomiendo, matarratas de época. La uso para ir al pádel, situación en la cual no desentona por el limón, le da un toque fresco</opinion_personal>
+                <mi_nota>4/10</mi_nota>
+
+            </perfume>
+
+        </momento_dia>
+
+        <momento_dia tipo="Noche">
+
+            <perfume id="perfume-015">
+                <nombre>Lion</nombre>
+                <marca>Rayhaan</marca>
+                <tipo>Eau de Parfum</tipo>
+                <familia_olfativa>Aromático Especiado</familia_olfativa>
+                <genero>Masculino</genero>
+                <notas>
+                    <salida>Lavanda, Pera, Menta, Bergamota</salida>
+                    <corazon>Canela, Salvia Romana, Comino</corazon>
+                    <fondo>Vainilla, Ámbar, Cedro, Pachulí</fondo>
+                </notas>
+                <precio moneda="EUR">30.00</precio>
+                <imagen>imagenes/verano/noche/lion.webp</imagen>
+
+                <descripcion>
+                    Lanzado en 2024, Rayhaan Lion es considerado uno de los mejores dupes del JPG Ultra Male. Abre con una explosi&#243;n frutal de pera y menta sobre lavanda, 
+                    evolucionando hacia un coraz&#243;n especiado de canela y comino. El fondo de vainilla, &#225;mbar y pachul&#237; es c&#225;lido y adictivo, con una proyecci&#243;n bestial de 
+                    m&#225;s de 10 horas.
+                </descripcion>
+                <opinion_personal>Muy buena compra, huele muy muy bien, la puedes usar incluso en invierno y no desentona, la recomendaría sin haberla olido antes, seguro que te gusta, a oarte el precio es un regalo</opinion_personal>
+                <mi_nota>8.5/10</mi_nota>
+            </perfume>
+
+            <perfume id="perfume-016">
+                <nombre>Starry Nights</nombre>
+                <marca>Montale</marca>
+                <tipo>Eau de Parfum</tipo>
+                <familia_olfativa>Oriental Floral</familia_olfativa>
+                <genero>Unisex</genero>
+                <notas>
+                    <salida>Manzana, Bergamota, Limón</salida>
+                    <corazon>Rosa, Pachulí, Jazmín</corazon>
+                    <fondo>Almizcle Blanco, Notas Empolvadas, Ámbar</fondo>
+                </notas>
+                <precio moneda="EUR">130.00</precio>
+                <imagen>imagenes/verano/noche/starry.jpeg</imagen>
+
+
+                <descripcion>
+                    Lanzado en 2015 por Pierre Montale, esta joya oriental floral combina c&#237;tricos chispeantes con un poderoso coraz&#243;n de rosa y pachul&#237; de Sumatra, 
+                    dejando una estela am&#237;zcalda y empolvada de gran sillage. Su potencia la hace ideal para noches de verano, dejando una impresi&#243;n imborrable.
+                </descripcion>
+                <opinion_personal>Perfumón, huele a rosas literalmente, como cuándo compras una rosa en una floristería y la hueles nada más salir. Puede ser empalagoso, huele mucho y dura aún más, así que hay que echar poco. Es para gustos.</opinion_personal>
+                <mi_nota>8.25/10</mi_nota>
+            </perfume>
+
+            <perfume id="perfume-0017">
+                <nombre>Erba Pura</nombre>
+                <marca>Xerjoff</marca>
+                <tipo>Eau de Parfum</tipo>
+                <familia_olfativa>Frutal Oriental</familia_olfativa>
+                <genero>Unisex</genero>
+                <notas>
+                    <salida>Naranja Siciliana, Limón, Bergamota Calabresa</salida>
+                    <corazon>Notas Frutales Mediterráneas</corazon>
+                    <fondo>Almizcle Blanco, Ámbar, Vainilla de Madagascar</fondo>
+                </notas>
+                <precio moneda="EUR">200.00</precio>
+                <imagen>imagenes/verano/noche/erba.jpeg</imagen>
+                <descripcion>
+                    Creado por Christian Carbonnel y Laura Santander, Erba Pura es uno de los grandes iconos de la perfumer&#237;a nicho moderna. Abre con una 
+                    explosi&#243;n de c&#237;tricos mediterr&#225;neos —naranja siciliana, lim&#243;n y bergamota— que dan paso a un coraz&#243;n jugoso de frutas del Mediterr&#225;neo. El fondo 
+                    de vainilla de Madagascar, &#225;mbar y almizcle blanco aporta una sensualidad c&#225;lida y envolvente que lo hace irresistible en noches de verano. 
+                    Bestia en proyecci&#243;n y sillage, con una duraci&#243;n que supera f&#225;cilmente las 8 horas.
+                </descripcion>
+                <opinion_personal>Quién sepa un poco sobre perfumería la conoce, de los perfumes que se han hecho más famosos en los últimos años, y es normal. Es el olor perfecto para verano e incluso invierno. nada más que decir</opinion_personal>
+                <mi_nota>9.75/10</mi_nota>
+            </perfume>
+
+
+        </momento_dia>
+
+    </temporada>
+
+</catalogo_perfumes>
+
+<!-- Creo que todo está estructurado perfecto o casi, cualquier cosa que pueda mejorar agradezco que me lo comentes-->

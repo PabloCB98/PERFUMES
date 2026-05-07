@@ -1,0 +1,51 @@
+<!--en la etiqueta raíz (catalogo_perfumes), le decimos que dentro
+de mi catálgo debe haber una o más etiquetas "temporada" obligatoriamente, 
+con el signo más lo hacemos-->
+<!ELEMENT catalogo_perfumes (temporada+)>
+
+<!--lo mismo aquí, dentro de temporada debe haber obligatoriamente una o más etiquetas
+""momento_dia-->
+<!ELEMENT temporada (momento_dia+)>
+<!--ATTLIST define los atributos que tiene una etiqueta, en este caso debe ser de invierno o verano, una de las dos opciones-->
+<!ATTLIST temporada
+    tipo (Invierno | Verano) #REQUIRED>
+
+<!--dentro de momento_dia debe haber uno o más perfumes obligatoriamente, y los atributos
+de esta etiqueta deben ser dia o noche -->
+<!ELEMENT momento_dia (perfume+)>
+<!ATTLIST momento_dia
+    tipo (Dia | Noche) #REQUIRED>
+
+<!--definimos la etiqueta perfume, en la que debe contener en su interior los elementos
+entre paréntesis y en el orden que se ve-->
+<!ELEMENT perfume (nombre, marca, tipo, familia_olfativa, genero, notas, precio, imagen, descripcion,opinion_personal,mi_nota)>
+<!--el ID de cada perfume. parte de ser único es obligatorio ponerlo-->
+<!ATTLIST perfume
+    id ID #REQUIRED>
+
+<!--#PCDATA nos dice que dentro de esos elementos va texto normal-->
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT marca (#PCDATA)>
+<!ELEMENT tipo (#PCDATA)>
+<!ELEMENT familia_olfativa (#PCDATA)>
+<!ELEMENT genero (#PCDATA)>
+<!ELEMENT opinion_personal (#PCDATA)>
+<!ELEMENT mi_nota (#PCDATA)>
+
+
+<!--Como las notas se pueden dividir en 3 distintas, directamente indico que dentro de esta
+etiquet van las etiquetas salida,corazón y fondo, las cuales llevan dentro texto nromal-->
+<!ELEMENT notas (salida, corazon, fondo)>
+<!ELEMENT salida (#PCDATA)>
+<!ELEMENT corazon (#PCDATA)>
+<!ELEMENT fondo (#PCDATA)>
+
+<!--la etiqueta precio contiene un número pero en texto-->
+<!ELEMENT precio (#PCDATA)>
+<!-- precio acepta cualquier cadena de texto, pero podemos usar símbolos debtro sin que nos de error el XML-->
+<!ATTLIST precio
+    moneda CDATA #REQUIRED>
+
+<!ELEMENT imagen (#PCDATA)>
+
+<!ELEMENT descripcion (#PCDATA)>

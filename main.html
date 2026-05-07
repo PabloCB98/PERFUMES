@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Perfumes</title>
+    <link rel="stylesheet" type="text/css" href="css/style-main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="imagenes/varios/icono/iconoPerfume.png"> <!-- meterle foto en la pestaña de la web -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=forward_to_inbox" />
+</head>
+
+<body>
+
+    <header id="inicio" class="titulo_conjunto">
+        <h1 id="titulo_principal">PERFUMES</h1>
+    </header>
+    
+    <section class="enlaces">
+        <a class="email" href="mailto:pablocousobarja@gmail.com"><span class="material-symbols-outlined" title="Envíame un e-mail!">forward_to_inbox</span></a>
+        <a class="enlace-fragantica" href="https://www.fragrantica.es/" target="_blank" rel="noopener noreferrer" title="Visitar Fragántica!">FRAG&Aacute;NTICA</a>
+    </section>
+
+    <nav>
+        <section class="botones-navegacion">
+            <a href="#" class="activa" data-panel="todos">TODOS</a>
+            <a href="#" data-panel="verano">♒︎  VERANO</a>
+            <a href="#" data-panel="invierno">❅ INVIERNO</a>
+        </section>
+    </nav>
+
+    <section class="contenedor_descripcion">
+        <h2 id="titulo_descripcion">Mi colecci&oacute;n de perfumes</h2>
+        <p id="descripcion">
+            &Eacute;sta es mi peque&ntilde;a colecci&oacute;n de perfumes, de todos los olores, 
+            clasificados seg&uacute;n la &eacute;poca del a&ntilde;o de uso ideal e incluso 
+            momento perfecto del d&iacute;a. Cada fragancia tiene un significado personal 
+            concreto y lo asocio a momentos espec&iacute;ficos de mi vida.
+        </p>
+    </section>
+
+    <section class="enlaces" style="justify-content: center; margin-bottom: 40px;">
+            <a class="enlace-fragantica" href="index.html">&larr; Ir a la introducción<a>
+            <a class="enlace-fragantica" href="#contenedor-perfumes">&darr; Ir a los Perfumes</a>
+            <a class="enlace-fragantica" href="despedida.html">Ir a la Despedida &rarr;</a>
+    </section>
+
+    <section class="todos-perfumes" id="contenedor-perfumes"></section>
+
+    <div class="overlay" id="overlay" onclick="cerrarModal(event)">
+    
+    <div class="modal">
+        <button class="cerrar" onclick="cerrarPorBoton()">X</button>
+        <img id="modal-imagen" src="" alt="">
+        <h2 id="modal-nombre"></h2>
+        <h3 id="modal-marca"></h3>
+        <p id="modal-tipo"></p>
+        <div class="modal-notas">
+            <span id="modal-salida"></span>
+            <span id="modal-corazon"></span>
+            <span id="modal-fondo"></span>
+        </div>
+        <p id="modal-descripcion"></p>
+        <p id="modal-opinion"></p>
+        <p id="modal-nota"></p>
+        <p id="modal-precio"></p>
+    </div>
+</div>
+
+<script src="js/script.js"></script>
+
+            <section class="enlaces" style="justify-content: center; margin-bottom: 40px;">
+                <a class="enlace-fragantica" href="#inicio">&uarr; Volver arriba</a>
+            </section>
+
+    <footer class="footer">
+        <p id="nombre_footer">Pablo Couso Barja</p>
+        <p id="datos_proyecto_footer">Proyecto Lenguaje de Marcas, 1&ordm; CS DAM</p>
+        <p id="colegio_footer">Montecastelo, Vigo (Galicia)</p>
+    </footer>
+</body>
+</html>
+

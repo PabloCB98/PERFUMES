@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portada - Mis Perfumes</title>
+    <link rel="stylesheet" type="text/css" href="css/style-index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> <!-- añadimos la fuente Montserrat desde Google Fonts, pero no la uso aún, eso en el CSS-->
+    <link rel="icon" type="image/x-icon" href="/imagenes/varios/icono/icon2.png"> <!--uso el icon para ponerle una foto en la pestaña del navegador-->
+</head>
+
+<body>
+<!--
+- He pasado todo por la IA para que le aplique el encode a los diferentes textos. He usado Gemini
+- Es algo bastante sencillito pero queda limpio al menos
+- Las class las uso para las etiquetas padre y los id para las hijas, por regla general. Uso unos nombres clave para etenderme con el css
+- Esta no es mi web original ni la que voy a entregar con el CSS y el JS, es una más sencilla
+-->
+    <header class="titulo-conjunto" >
+        <h1 id="titulo-principal">PERFUMES</h1>
+    </header>
+
+<!--
+- Agrupamos por secciones dentro d ela parte main de la portada, para agrupar todo correctramente
+-->
+    <main>
+        <section class="contenedor-descripcion">
+            <h2 id="titulo-descripcion">Bienvenido a mi cat&aacute;logo de perfumes</h2>
+            <p id="descripcion">
+                Descubre mi colecci&oacute;n personal de fragancias.
+                <br>Cada aroma tiene su propia historia personal, dependiendo si me lo he comprado para una ocasión especial, si es un regalo o simplemente un capricho.
+                <br>Espero que os guste.
+            </p>
+            <nav class="botones-navegacion">
+                <a href="main.html" class="activa"> ENTRAR A LA COLECCI&Oacute;N</a> <!--al clicar en este enlace nos manda a la parte main del trabajo-->
+            </nav>
+        </section>
+    </main>
+
+<!--
+- De igual manera, el footer lo estructuramos bien para que se pueda editar con CSS de una forma más fácil
+-->
+    <footer class="footer">
+        <p id="nombre-footer">Proyecto Lenguaje de Marcas</p>
+        <p id="datos-proyecto-footer">Web completada</p>
+        <p id="año-footer">2026</p>
+    </footer>
+
+
+</body>
+
+</html>
