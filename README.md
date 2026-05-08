@@ -24,3 +24,8 @@ La IA me ha ayudado muchísimo, es un complemento genial una vez te sabes desenv
 
 Espero que todo sea de tu agrado, muchas gracias por la atención y un saludo! Nos vemos en la exposición.
 
+ARKANOID
+
+En el videojuego Arkanoid, me he guiado por la web que nos has proporcionado, paso a paso, cambiando los estilos y añadiendo alguna que otra funcionalidad extra.
+
+Me he apoyado en la IA para algunas correcciones como la posición de cada elemento para cuadrar todo perfectamente y para informarme sobre como hacer cada funcionalidad.
