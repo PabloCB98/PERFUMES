@@ -158,9 +158,7 @@ nav {
     text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
 }
 
-.enlaces{
-    
-}
+
 /* Animación aparecer elementos, en este caso los perfumes 
 las animaciones las hacemos con ese arroba y la palabra keyframes. Definen la evolución de un eleemnto
 desde un estado inicial a uno final, o también a través de pasos intermedios*/
@@ -400,6 +398,19 @@ desde un estado inicial a uno final, o también a través de pasos intermedios*/
         margin-top: 30px;
     }
 
+    .enlaces{
+    flex-wrap: wrap; /*para que los enlaces bajen si son muy largos*/
+    margin: 20px 0; /*sin margenes laterales solo arriba y abajo*/
+    justify-content:center;
+    width: 100%;
+    gap: 15px;
+    padding: 0;
+    }
+
+
+    .botones-navegacion{
+        margin: 0 auto; /*aseguramos que se centren*/
+    }
     /* el grid lo pasamos a 1 columna en vez de 3, para que se vea perfecto */
     .todos-perfumes {
         grid-template-columns: 1fr;
@@ -420,11 +431,13 @@ desde un estado inicial a uno final, o también a través de pasos intermedios*/
     
     #nombre_footer, #datos_proyecto_footer, #colegio_footer {
         text-align: center;
+        margin-bottom: 10px;
     }
 
     /*ajustamos el modal para que no se nos salga de la pantalla */
     .modal {
         width: 95%;
         padding: 1rem;
+
     }
 }

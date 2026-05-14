@@ -136,3 +136,40 @@ body{
 #colegio-footer { 
     text-align: right; 
 }
+
+@media (max-width: 768px) {
+    
+    /* aquí reducimos el tamaño del título para que quepa en el teléfono*/
+    #titulo-principal {
+        font-size: 40px;
+        letter-spacing: 5px;
+        width: 100%;
+        margin-top: 30px;
+    }
+
+
+    .botones-navegacion{
+        margin: 0 auto; /*aseguramos que se centren*/
+    }
+    /* el grid lo pasamos a 1 columna en vez de 3, para que se vea perfecto */
+    .todos-perfumes {
+        width: 90%;
+    }
+
+    /*reducimos el tamaño de la caja */
+    .contenedor-descripcion {
+        width: 80%;
+        padding: 15px;
+    }
+
+    /*pasamos el grid del footer también a 1 columna centrada */
+    .footer {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    #nombre-footer, #datos-proyecto-footer, #colegio-footer {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}

@@ -34,7 +34,7 @@ entre paréntesis y en el orden que se ve-->
 
 
 <!--Como las notas se pueden dividir en 3 distintas, directamente indico que dentro de esta
-etiquet van las etiquetas salida,corazón y fondo, las cuales llevan dentro texto nromal-->
+etiqueta van las etiquetas salida,corazón y fondo, las cuales llevan dentro texto normal-->
 <!ELEMENT notas (salida, corazon, fondo)>
 <!ELEMENT salida (#PCDATA)>
 <!ELEMENT corazon (#PCDATA)>
@@ -42,7 +42,7 @@ etiquet van las etiquetas salida,corazón y fondo, las cuales llevan dentro text
 
 <!--la etiqueta precio contiene un número pero en texto-->
 <!ELEMENT precio (#PCDATA)>
-<!-- precio acepta cualquier cadena de texto, pero podemos usar símbolos debtro sin que nos de error el XML-->
+<!-- precio acepta cualquier cadena de texto, pero podemos usar símbolos dentro sin que nos de error el XML-->
 <!ATTLIST precio
     moneda CDATA #REQUIRED>
 

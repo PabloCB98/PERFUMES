@@ -5,7 +5,7 @@
 <!-- La he usado para que me diese una descripción de cada perfume de una forma adecuada y breve, también le he
 pedido ayuda para que me diese las notas y familias olfativas, ya que yo tengo los perfumes, pero no me sé las notas ni los precios actualizados-->
 <!-- Bastante info sacada de la web de Fragántica-->
-<!-- Debería estar todo con un léico correcto y sin faltas ortográficas, ya que he pasado las descripciones por IA para que las tildes sean cambiadas por sus entidades y evitar errores,
+<!-- Debería estar todo con un léxico correcto y sin faltas ortográficas, ya que he pasado las descripciones por IA para que las tildes sean cambiadas por sus entidades y evitar errores,
 unque el xml esté en UTF-8 y no debería dar errores, aún más en los navegadores principales que usaremos. Las opiniones personales las he dejado tal cual las he escrito, como he dicho,
 con el UTF-8 no debería dar fallo -->
 
