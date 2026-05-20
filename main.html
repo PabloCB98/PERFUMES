@@ -15,13 +15,105 @@
     
     <link rel="icon" type="image/png" href="imagenes/varios/icono/iconoPerfume.png"> <!-- meterle foto en la pestaña de la web -->
     
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=forward_to_inbox" /> <!-- Icono email -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
 <body>
 
-    <header id="inicio" class="titulo_conjunto">
-        <h1 id="titulo_principal">PERFUMES</h1>
+    <!-- Menú lateral (estructura base — añadir contenido en cada sección) -->
+    <button
+        type="button"
+        class="btn-menu"
+        id="btn-abrir-menu"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="menu-lateral"
+    >
+        <span class="btn-menu__barra" aria-hidden="true"></span>
+        <span class="btn-menu__barra" aria-hidden="true"></span>
+        <span class="btn-menu__barra" aria-hidden="true"></span>
+    </button>
+
+    <div class="menu-overlay" id="menu-overlay" hidden></div>
+
+    <aside
+        class="menu-lateral"
+        id="menu-lateral"
+        aria-hidden="true"
+        aria-modal="true"
+        aria-labelledby="menu-lateral-titulo"
+    >
+        <header class="menu-lateral__cabecera">
+            <button type="button" class="menu-lateral__cerrar" id="btn-cerrar-menu">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+                Cerrar
+            </button>
+        </header>
+
+        <nav class="menu-lateral__pestanas" aria-label="Categorías del menú">
+            <!-- Pestañas: duplicar <li> y cambiar texto/enlaces -->
+            <ul class="menu-lateral__lista-pestanas">
+                <li>
+                    <button type="button" class="menu-lateral__pestana menu-lateral__pestana--activa" data-pestana="ejemplo-1">
+                        Pestaña 1
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="menu-lateral__pestana" data-pestana="ejemplo-2">
+                        Pestaña 2
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="menu-lateral__pestana" data-pestana="ejemplo-3">
+                        Pestaña 3
+                    </button>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="menu-lateral__scroll">
+            <nav class="menu-lateral__nav-principal" aria-label="Navegación principal">
+                <ul class="menu-lateral__lista menu-lateral__lista--principal">
+                    <li class="menu-lateral__slot"><!-- Enlace principal 1 --></li>
+                    <li class="menu-lateral__slot"><!-- Enlace principal 2 --></li>
+                    <li class="menu-lateral__slot"><!-- Enlace principal 3 --></li>
+                </ul>
+            </nav>
+
+            <nav class="menu-lateral__nav-secundario" aria-label="Navegación secundaria">
+                <ul class="menu-lateral__lista menu-lateral__lista--secundaria">
+                    <li class="menu-lateral__slot"><!-- Enlace secundario 1 --></li>
+                    <li class="menu-lateral__slot"><!-- Enlace secundario 2 --></li>
+                </ul>
+            </nav>
+
+            <section class="menu-lateral__destacados" aria-label="Destacados">
+                <h2 class="menu-lateral__titulo-seccion" id="menu-lateral-titulo">
+                    Destacados
+                    <span class="menu-lateral__contador"><!-- número, ej. 6 --></span>
+                </h2>
+                <ul class="menu-lateral__grid-destacados">
+                    <li class="menu-lateral__slot-destacado">
+                        <!-- Miniatura + nombre (estilo pastilla) -->
+                    </li>
+                    <li class="menu-lateral__slot-destacado"></li>
+                    <li class="menu-lateral__slot-destacado"></li>
+                    <li class="menu-lateral__slot-destacado"></li>
+                </ul>
+            </section>
+        </div>
+
+        <footer class="menu-lateral__pie">
+            <p class="menu-lateral__slot menu-lateral__slot--pie">
+                <!-- Texto o enlace del pie del menú (ej. suscripción, contacto) -->
+            </p>
+        </footer>
+    </aside>
+
+    <header class="cabecera-hero" id="inicio">
+        <div class="cabecera-hero__barra" id="barra-titulo">
+            <h1 id="titulo_principal">PERFUMES</h1>
+        </div>
     </header>
     
     <section class="enlaces">
@@ -29,11 +121,53 @@
         <a class="enlace-fragantica" href="https://www.fragrantica.es/" target="_blank" rel="noopener noreferrer" title="Visitar Fragántica!">FRAG&Aacute;NTICA</a>
     </section>
 
-    <nav>
-        <section class="botones-navegacion">
-            <a href="#" class="activa" data-panel="todos">TODOS</a>
-            <a href="#" data-panel="verano">♒︎  VERANO</a>
-            <a href="#" data-panel="invierno">❅ INVIERNO</a>
+    <nav class="nav-principal" aria-label="Filtros y búsqueda">
+        <div class="nav-filtros-busqueda">
+            <section class="botones-navegacion">
+                <a href="#" class="activa" data-panel="todos">TODOS</a>
+                <a href="#" data-panel="verano">♒︎  VERANO</a>
+                <a href="#" data-panel="invierno">❅ INVIERNO</a>
+            </section>
+            <button
+                type="button"
+                class="btn-lupa"
+                id="btn-toggle-busqueda"
+                aria-label="Buscar perfumes"
+                aria-expanded="false"
+                aria-controls="panel-busqueda"
+                title="Buscar..."
+            >
+                <span class="material-symbols-outlined" aria-hidden="true">search</span>
+            </button>
+        </div>
+        <section class="busqueda-perfumes" id="panel-busqueda" aria-hidden="true">
+            <div class="busqueda-campo">
+                <input
+                    type="search"
+                    id="busqueda-perfumes"
+                    class="input-busqueda"
+                    placeholder="Nombre o marca..."
+                    aria-label="Buscar perfumes por nombre o marca"
+                    aria-autocomplete="list"
+                    aria-controls="lista-resultados-busqueda"
+                    autocomplete="off"
+                >
+                <button
+                    type="button"
+                    id="btn-limpiar-input"
+                    class="btn-limpiar-input"
+                    hidden
+                    aria-label="Borrar búsqueda"
+                    title="Borrar"
+                >
+                    <span class="material-symbols-outlined" aria-hidden="true">close</span>
+                </button>
+            </div>
+            <div class="resultados-busqueda" id="resultados-busqueda" hidden>
+                <p class="resultados-busqueda__titulo">Coincidencias</p>
+                <ul id="lista-resultados-busqueda" role="listbox"></ul>
+                <p id="sin-resultados-busqueda" class="resultados-busqueda__vacio" hidden>Sin resultados para tu b&uacute;squeda</p>
+            </div>
         </section>
     </nav>
 
@@ -53,7 +187,15 @@
         <a class="enlace-fragantica" href="despedida.html">Ir a la Despedida &rarr;</a>
     </section>
 
-    <section class="todos-perfumes" id="contenedor-perfumes"></section> <!-- HTML limpio para inyectar con JS el cotenido dentro -->
+    <div class="aviso-busqueda" id="aviso-busqueda" hidden role="status">
+        <span id="aviso-busqueda-texto"></span>
+        <button type="button" id="btn-quitar-busqueda" class="btn-quitar-busqueda" title="Quitar filtro de búsqueda">
+            <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            Ver todos
+        </button>
+    </div>
+    <section class="todos-perfumes" id="contenedor-perfumes" aria-live="polite"></section>
+    <p class="mensaje-vacio-grid" id="mensaje-vacio-grid" hidden>No hay perfumes que coincidan con tu b&uacute;squeda.</p>
 
     <div class="overlay" id="overlay" onclick="cerrarModal(event)">
         <div class="modal">
@@ -74,8 +216,6 @@
         </div>
     </div>
 
-<script src="js/script.js"></script>
-
     <section class="enlaces" style="justify-content: center; margin-bottom: 40px;">
                 <a class="enlace-fragantica" href="#inicio">&uarr; Volver arriba</a>
     </section>
@@ -85,6 +225,10 @@
         <p id="datos_proyecto_footer">Proyecto Lenguaje de Marcas, 1&ordm; CS DAM</p>
         <p id="colegio_footer">Montecastelo, Vigo (Galicia)</p>
     </footer>
+
+    <script src="js/menu-lateral.js"></script>
+    <script src="js/titulo-scroll.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
 

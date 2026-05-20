@@ -1,178 +1,514 @@
-//con este primer bloque nos aseguramos que el html se ha cargado antes de buscar nada, ya que sinó nos daría error
-document.addEventListener("DOMContentLoaded", () => {
-    cargarPerfumes(); // llama a la función que extrae los datos del archivo XML y los pinta
-    configurarFiltros(); // me sirve para poder filtrar a través de los botones
+// Estado global de filtros (temporada + búsqueda por texto)
+let filtroTemporadaActivo = 'todos';
+let textoBusquedaActivo = '';
+let refrescarSugerenciasBusqueda = null;
+let limpiarBusquedaActiva = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+    cargarPerfumes();
 });
 
-//con esta función cargamos los datos del XML, la función que tenemos también ariba
+function normalizarTexto(texto) {
+    return texto
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+}
+
+function obtenerTarjetas() {
+    return document.querySelectorAll('#contenedor-perfumes .tarjeta-perfume');
+}
+
+function coincideConBusqueda(tarjeta, consulta) {
+    if (!consulta) return true;
+
+    const termino = normalizarTexto(consulta);
+    const nombre = normalizarTexto(tarjeta.dataset.nombre || '');
+    const marca = normalizarTexto(tarjeta.dataset.marca || '');
+
+    return nombre.includes(termino) || marca.includes(termino);
+}
+
+function coincideConTemporada(tarjeta, temporada) {
+    return temporada === 'todos' || tarjeta.dataset.temporada === temporada;
+}
+
+function hayFiltroBusquedaActivo() {
+    return textoBusquedaActivo.trim().length > 0;
+}
+
+function actualizarIndicadoresBusqueda(visibles) {
+    const avisoBusqueda = document.getElementById('aviso-busqueda');
+    const avisoTexto = document.getElementById('aviso-busqueda-texto');
+    const btnLupa = document.getElementById('btn-toggle-busqueda');
+    const btnLimpiarInput = document.getElementById('btn-limpiar-input');
+    const inputBusqueda = document.getElementById('busqueda-perfumes');
+    const filtroActivo = hayFiltroBusquedaActivo();
+
+    if (btnLupa) {
+        btnLupa.classList.toggle('busqueda-activa', filtroActivo);
+        btnLupa.title = filtroActivo ? 'Filtro activo — pulsa Ver todos para salir' : 'Buscar...';
+    }
+
+    if (btnLimpiarInput && inputBusqueda) {
+        const panelAbierto = document.getElementById('panel-busqueda')?.classList.contains('visible');
+        btnLimpiarInput.hidden = !(panelAbierto && inputBusqueda.value.trim());
+    }
+
+    if (avisoBusqueda && avisoTexto) {
+        if (filtroActivo) {
+            avisoBusqueda.hidden = false;
+            avisoTexto.textContent =
+                visibles === 1
+                    ? `Mostrando 1 perfume para «${textoBusquedaActivo}»`
+                    : `Mostrando ${visibles} perfumes para «${textoBusquedaActivo}»`;
+        } else {
+            avisoBusqueda.hidden = true;
+            avisoTexto.textContent = '';
+        }
+    }
+}
+
+function aplicarFiltrosAlGrid() {
+    const tarjetas = obtenerTarjetas();
+    const mensajeVacio = document.getElementById('mensaje-vacio-grid');
+    let visibles = 0;
+
+    tarjetas.forEach(tarjeta => {
+        const mostrar =
+            coincideConTemporada(tarjeta, filtroTemporadaActivo) &&
+            coincideConBusqueda(tarjeta, textoBusquedaActivo);
+
+        tarjeta.style.display = mostrar ? '' : 'none';
+        tarjeta.classList.toggle('tarjeta-oculta', !mostrar);
+
+        if (mostrar) visibles++;
+    });
+
+    if (mensajeVacio) {
+        mensajeVacio.hidden = !(hayFiltroBusquedaActivo() && visibles === 0);
+    }
+
+    actualizarIndicadoresBusqueda(visibles);
+}
+
+function activarFiltroTemporada(temporada) {
+    const botones = document.querySelectorAll('.botones-navegacion a[data-panel]');
+    botones.forEach(boton => {
+        boton.classList.toggle('activa', boton.getAttribute('data-panel') === temporada);
+    });
+    filtroTemporadaActivo = temporada;
+    aplicarFiltrosAlGrid();
+}
+
 function cargarPerfumes() {
-    fetch('data/datos.xml') //petición fetch para leer los datos del archivo XML en cuestión
-        .then(respuesta => respuesta.text()) //convierto la respuesta a texto
+    fetch('data/datos.xml')
+        .then(respuesta => respuesta.text())
         .then(textoXML => {
-            //utilizamos DOMParser para traducir el texto a formato XML real para que JS lo entienda correctamente
-            let parser = new DOMParser(); 
-            let xmlDoc = parser.parseFromString(textoXML, "application/xml");
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(textoXML, 'application/xml');
+            const contenedor = document.getElementById('contenedor-perfumes');
+            const perfumes = xmlDoc.getElementsByTagName('perfume');
 
-            //buscamos el contenedor en el que irán las cajas de los perfumes
-            let contenedor = document.getElementById("contenedor-perfumes");
-            
-            //obtenemos una lista con todas las etiquetas perfume que hay en el xml
-            let perfumes = xmlDoc.getElementsByTagName("perfume");
+            for (let i = 0; i < perfumes.length; i++) {
+                const p = perfumes[i];
 
-            //bucle for, que se hace como en Java, para encontrar cada perfume uno a uno y se guardan como un array
-            for (let i = 0; i<perfumes.length; i++) {
-                
-                let p = perfumes[i]; //le damos el nombre de p al perfume que tengamos en cada vuelta del bucle
+                const id = p.getAttribute('id');
+                const nombre = p.getElementsByTagName('nombre')[0].textContent;
+                const marca = p.getElementsByTagName('marca')[0].textContent;
+                const tipo = p.getElementsByTagName('tipo')[0].textContent;
+                const familia = p.getElementsByTagName('familia_olfativa')[0].textContent;
+                const genero = p.getElementsByTagName('genero')[0].textContent;
+                const salida = p.getElementsByTagName('salida')[0].textContent;
+                const corazon = p.getElementsByTagName('corazon')[0].textContent;
+                const fondo = p.getElementsByTagName('fondo')[0].textContent;
+                const precio = p.getElementsByTagName('precio')[0].textContent;
+                const imagen = p.getElementsByTagName('imagen')[0].textContent.trim();
+                const descripcion = p
+                    .getElementsByTagName('descripcion')[0]
+                    .textContent.trim()
+                    .replace(/\s+/g, ' ');
+                const opinion = p
+                    .getElementsByTagName('opinion_personal')[0]
+                    .textContent.trim()
+                    .replace(/\s+/g, ' ');
+                const nota = p.getElementsByTagName('mi_nota')[0].textContent;
 
-                //en los siguientes pasos, extraemos la información
-                let id = p.getAttribute("id");
-                let nombre = p.getElementsByTagName("nombre")[0].textContent; //usamos el [0] porque el getElementsByTagName nos devuelve un array, aunque en este caso solo tengamos un nombre
-                let marca = p.getElementsByTagName("marca")[0].textContent; //con el textContent sacamos el texto de dentro de la etiqueta, y así en cada uno de los pasos siguientes
-                let tipo = p.getElementsByTagName("tipo")[0].textContent;
-                let familia = p.getElementsByTagName("familia_olfativa")[0].textContent;
-                let genero = p.getElementsByTagName("genero")[0].textContent;
+                const nodoTemporada = p.parentNode.parentNode;
+                const temporada = nodoTemporada.getAttribute('tipo').toLowerCase();
 
-                let notas = p.getElementsByTagName("notas")[0]; // aquí, dentro de notas hay elementos anidados, por lo que accedemos primero al padre, notas, y luego a las hijas, de igual manera que antes 
-                let salida = p.getElementsByTagName("salida")[0].textContent;
-                let corazon = p.getElementsByTagName("corazon")[0].textContent;
-                let fondo = p.getElementsByTagName("fondo")[0].textContent;
-
-                let precio = p.getElementsByTagName("precio")[0].textContent;
-                let imagen = p.getElementsByTagName("imagen")[0].textContent.trim(); //con .trim elimino los espacios antes y después que pueda haber en el texto
-
-                //limpiamos la descripción y la opinión
-                // .replace(/\s+/g, ' ') elimina los saltos de línea extra
-                let descripcion = p.getElementsByTagName("descripcion")[0].textContent.trim().replace(/\s+/g, ' ');
-                let opinion = p.getElementsByTagName("opinion_personal")[0].textContent.trim().replace(/\s+/g, ' ');
-                let nota = p.getElementsByTagName("mi_nota")[0].textContent;
-
-                //para el nodoTemporada, subimos al padre del padre para poder leer la etiqueta de temporada del perfume, para filtrarlos
-                let nodoTemporada = p.parentNode.parentNode;
-                let temporada = nodoTemporada.getAttribute("tipo").toLowerCase(); //buscamos por tipo y lo pasamos a minúsculas, para evitar errores
-
-                //generamos una nueva caja de tipo div  en la memoria para el perfume
-                let divPerfume = document.createElement("div");
+                const divPerfume = document.createElement('div');
                 divPerfume.id = id;
-
-                //le metemos la temporada del perfume como un atributo de datos, que servirá para que los botones sepan cuándo ocultar y cuñando mostrar
+                divPerfume.className = 'tarjeta-perfume';
                 divPerfume.dataset.temporada = temporada;
+                divPerfume.dataset.nombre = nombre;
+                divPerfume.dataset.marca = marca;
 
-                //añadimos un EventListener para que al clickar en la caja, se abrirá el modal
-                divPerfume.addEventListener("click", () => {
-                    abrirModal(nombre, marca, tipo, familia, genero,salida,corazon, fondo, descripcion, opinion, nota, precio,imagen);
+                divPerfume.addEventListener('click', () => {
+                    abrirModal(
+                        nombre,
+                        marca,
+                        tipo,
+                        familia,
+                        genero,
+                        salida,
+                        corazon,
+                        fondo,
+                        descripcion,
+                        opinion,
+                        nota,
+                        precio,
+                        imagen
+                    );
                 });
 
-                // aquí creamos la imagen de cada tarjeta. También le añadimos el alt, para que si no carga la imagen, muestre ese texto
-                let img = document.createElement("img");
+                const img = document.createElement('img');
                 img.src = imagen;
-                img.alt = "Foto del perfume " + nombre;
+                img.alt = 'Foto del perfume ' + nombre;
+                img.loading = 'lazy';
 
-                //aquí creamos el nombre como título
-                let h3 = document.createElement("h3");
+                const h3 = document.createElement('h3');
                 h3.textContent = nombre;
 
-                // y aquí la marca como subtítulo
-                let h4 = document.createElement("h4");
+                const h4 = document.createElement('h4');
                 h4.textContent = marca;
 
-                // aquí simplemente metemos la imagen y cada texto dentro del div creado antes
                 divPerfume.appendChild(img);
                 divPerfume.appendChild(h3);
                 divPerfume.appendChild(h4);
-
-                // al final, metemos el div completo en el contenedor que hemos creado más arriba, el contenedor de la página web
                 contenedor.appendChild(divPerfume);
             }
+
+            configurarBusqueda();
+            configurarFiltros();
+            aplicarFiltrosAlGrid();
         })
-
-        //por si acaso hay algún error en la carga del XML, usamos el catch para atraparlo y mostrar el texto con el error
         .catch(error => {
-            console.error("Error al cargar el XML: " + error);
-            document.getElementById("contenedor-perfumes").innerHTML = "<p>Error al cargar los perfumes, se debe usar Live Server</p>"
+            console.error('Error al cargar el XML: ' + error);
+            document.getElementById('contenedor-perfumes').innerHTML =
+                '<p class="mensaje-error-carga">Error al cargar los perfumes. Debes usar Live Server.</p>';
         });
-    }
-    
-    //en esta función se configuran los filtros
-    function configurarFiltros() {
-        //aquí seleccionamos todos los enlaces a dentro de la clase botones-navegacion, por eso el punto
-        const botones = document.querySelectorAll('.botones-navegacion a');
+}
 
-        //recorremos cada boton para darle la funcionalidad
-        botones.forEach(boton => {
-            boton.addEventListener('click', (e) => {
-                e.preventDefault(); //con esto se evita que se recargue la pagina o nos mande havia arriba
+function configurarFiltros() {
+    const botones = document.querySelectorAll('.botones-navegacion a[data-panel]');
 
-                //eliminamos la clase activa a todo y se la aplicamos al botón que esté pulsado
-                botones.forEach(b => b.classList.remove('activa'));
-                boton.classList.add('activa');
+    botones.forEach(boton => {
+        boton.addEventListener('click', e => {
+            e.preventDefault();
 
-                //leemos qué categoría queremos mostrar, si todos, si invierno o verano
-                const filtroSeleccionado = boton.getAttribute('data-panel');
+            if (hayFiltroBusquedaActivo() && limpiarBusquedaActiva) {
+                limpiarBusquedaActiva();
+            }
 
-                //seleccionamos todas las cajas de perfumes antes creadas, arriba
-                const tarjetasPerfumes = document.querySelectorAll('#contenedor-perfumes > div');
+            filtroTemporadaActivo = boton.getAttribute('data-panel');
+            botones.forEach(b => b.classList.remove('activa'));
+            boton.classList.add('activa');
+            aplicarFiltrosAlGrid();
+            if (refrescarSugerenciasBusqueda) refrescarSugerenciasBusqueda();
+        });
+    });
+}
 
-                //comparamos el filtro seleccionado con el atributo data-temporada de cada caja
-                tarjetasPerfumes.forEach(tarjeta => {
-                    //si marcamos todos o la temporada coincide con el filtro, se muestra
-                    if (filtroSeleccionado === 'todos' || tarjeta.dataset.temporada === filtroSeleccionado) {
-                        tarjeta.style.display = '';
-                    }
-                else {
-                    //si no coincide se oculta toda la caja
-                    tarjeta.style.display = 'none';
-                }
-                });
+function configurarBusqueda() {
+    const btnLupa = document.getElementById('btn-toggle-busqueda');
+    const panelBusqueda = document.getElementById('panel-busqueda');
+    const inputBusqueda = document.getElementById('busqueda-perfumes');
+    const resultadosBusqueda = document.getElementById('resultados-busqueda');
+    const listaResultados = document.getElementById('lista-resultados-busqueda');
+    const sinResultados = document.getElementById('sin-resultados-busqueda');
+
+    if (!btnLupa || !panelBusqueda || !inputBusqueda) return;
+
+    const cerrarPanelBusqueda = () => {
+        panelBusqueda.classList.remove('visible', 'con-resultados');
+        panelBusqueda.setAttribute('aria-hidden', 'true');
+        btnLupa.classList.remove('activa');
+        btnLupa.setAttribute('aria-expanded', 'false');
+        if (resultadosBusqueda) resultadosBusqueda.hidden = true;
+    };
+
+    const abrirPanelBusqueda = () => {
+        panelBusqueda.classList.add('visible');
+        panelBusqueda.setAttribute('aria-hidden', 'false');
+        btnLupa.classList.add('activa');
+        btnLupa.setAttribute('aria-expanded', 'true');
+        inputBusqueda.focus();
+    };
+
+    const btnLimpiarInput = document.getElementById('btn-limpiar-input');
+    const btnQuitarBusqueda = document.getElementById('btn-quitar-busqueda');
+
+    const limpiarBusqueda = () => {
+        inputBusqueda.value = '';
+        textoBusquedaActivo = '';
+        if (resultadosBusqueda) resultadosBusqueda.hidden = true;
+        if (listaResultados) listaResultados.innerHTML = '';
+        if (sinResultados) sinResultados.hidden = true;
+        panelBusqueda.classList.remove('con-resultados');
+        cerrarPanelBusqueda();
+        aplicarFiltrosAlGrid();
+        obtenerTarjetas().forEach(t => t.classList.remove('tarjeta-resaltada'));
+    };
+
+    limpiarBusquedaActiva = limpiarBusqueda;
+
+    const enlazarLimpiar = boton => {
+        if (boton) boton.addEventListener('click', e => {
+            e.stopPropagation();
+            limpiarBusqueda();
+        });
+    };
+
+    enlazarLimpiar(btnLimpiarInput);
+    enlazarLimpiar(btnQuitarBusqueda);
+
+    const obtenerCoincidencias = consulta => {
+        const termino = consulta.trim();
+        if (!termino) return [];
+
+        return Array.from(obtenerTarjetas()).filter(tarjeta =>
+            coincideConBusqueda(tarjeta, termino)
+        );
+    };
+
+    const etiquetaTemporada = temporada => {
+        if (temporada === 'verano') return 'Verano';
+        if (temporada === 'invierno') return 'Invierno';
+        return temporada;
+    };
+
+    const seleccionarPerfumeDesdeBusqueda = (tarjeta, consulta) => {
+        const consultaFinal = consulta || tarjeta.dataset.nombre;
+        inputBusqueda.value = consultaFinal;
+
+        if (!coincideConTemporada(tarjeta, filtroTemporadaActivo)) {
+            activarFiltroTemporada('todos');
+        }
+
+        textoBusquedaActivo = consultaFinal;
+        aplicarFiltrosAlGrid();
+        cerrarPanelBusqueda();
+
+        tarjeta.classList.add('tarjeta-resaltada');
+        setTimeout(() => tarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
+        setTimeout(() => tarjeta.classList.remove('tarjeta-resaltada'), 2200);
+    };
+
+    const renderizarSugerencias = coincidencias => {
+        if (!listaResultados || !resultadosBusqueda || !sinResultados) return;
+
+        listaResultados.innerHTML = '';
+        resultadosBusqueda.hidden = false;
+        panelBusqueda.classList.add('con-resultados');
+
+        if (coincidencias.length === 0) {
+            sinResultados.hidden = false;
+            return;
+        }
+
+        sinResultados.hidden = true;
+
+        coincidencias.forEach(tarjeta => {
+            const item = document.createElement('li');
+            item.className = 'resultado-item';
+            item.setAttribute('role', 'option');
+            item.dataset.id = tarjeta.id;
+
+            const miniatura = tarjeta.querySelector('img')?.cloneNode(true);
+            if (miniatura) {
+                miniatura.className = 'resultado-item__img';
+                item.appendChild(miniatura);
+            }
+
+            const info = document.createElement('div');
+            info.className = 'resultado-item__info';
+
+            const nombre = document.createElement('span');
+            nombre.className = 'resultado-item__nombre';
+            nombre.textContent = tarjeta.dataset.nombre;
+
+            const marca = document.createElement('span');
+            marca.className = 'resultado-item__marca';
+            marca.textContent = tarjeta.dataset.marca;
+
+            const temporada = document.createElement('span');
+            temporada.className = 'resultado-item__temporada';
+            temporada.textContent = etiquetaTemporada(tarjeta.dataset.temporada);
+
+            info.appendChild(nombre);
+            info.appendChild(marca);
+            info.appendChild(temporada);
+            item.appendChild(info);
+
+            item.addEventListener('click', () => {
+                seleccionarPerfumeDesdeBusqueda(tarjeta, inputBusqueda.value.trim());
             });
-        });
-    }
-    
-    //Esta función es la del modal, la de la ventana emergente al pulsar en cada perfume
-    //recibe los datos del perfume selecionado y se los metemos en el html del modal
-    function abrirModal(nombre, marca, tipo, familia, genero, salida, corazon, fondo, desc, opinion, nota, precio, imagen) {
-        document.getElementById('modal-nombre').textContent = nombre;
-        document.getElementById('modal-marca').textContent = marca;
-        document.getElementById('modal-tipo').textContent = tipo + ' · ' + familia + ' · ' + genero;
-        document.getElementById('modal-salida').textContent = 'Salida: ' + salida;
-        document.getElementById('modal-corazon').textContent = 'Corazón: ' + corazon;
-        document.getElementById('modal-fondo').textContent = 'Fondo: ' + fondo;
-        document.getElementById('modal-descripcion').textContent = desc;
-        document.getElementById('modal-opinion').textContent = '❝ ' + opinion + ' ❞';
-        document.getElementById('modal-nota').textContent = 'Mi nota: ' + nota;
-        document.getElementById('modal-precio').textContent = 'Precio: ' + precio + '€';
-        document.getElementById('modal-imagen').src = imagen;
-        document.getElementById('overlay').classList.add('visible'); //hacemos visible el overlay que contiene el moda. El overlay es  la capa oscura al abrirlo
-    }
 
-    //cerramos el modal cuándo hacemos click fuera de la caja, es decir, en la capa oscura
-    function cerrarModal(e) {
-    // comprobamos que el click es en el overlay
+            listaResultados.appendChild(item);
+        });
+    };
+
+    const actualizarSugerenciasBusqueda = () => {
+        const consulta = inputBusqueda.value.trim();
+        if (!consulta) {
+            if (resultadosBusqueda) resultadosBusqueda.hidden = true;
+            if (listaResultados) listaResultados.innerHTML = '';
+            if (sinResultados) sinResultados.hidden = true;
+            panelBusqueda.classList.remove('con-resultados');
+            return;
+        }
+        renderizarSugerencias(obtenerCoincidencias(consulta));
+    };
+
+    refrescarSugerenciasBusqueda = actualizarSugerenciasBusqueda;
+
+    const confirmarBusqueda = () => {
+        const consulta = inputBusqueda.value.trim();
+        if (!consulta) {
+            limpiarBusqueda();
+            return;
+        }
+
+        const coincidencias = obtenerCoincidencias(consulta);
+
+        if (coincidencias.length === 0) {
+            textoBusquedaActivo = consulta;
+            aplicarFiltrosAlGrid();
+            renderizarSugerencias([]);
+            return;
+        }
+
+        // Si hay resultados en otra temporada, mostramos TODOS para no ocultarlos
+        const hayFueraDeTemporada = coincidencias.some(
+            t => !coincideConTemporada(t, filtroTemporadaActivo)
+        );
+        if (hayFueraDeTemporada && filtroTemporadaActivo !== 'todos') {
+            activarFiltroTemporada('todos');
+        }
+
+        textoBusquedaActivo = consulta;
+        aplicarFiltrosAlGrid();
+        cerrarPanelBusqueda();
+
+        const destino = document.getElementById('contenedor-perfumes');
+        if (destino) {
+            destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    };
+
+    btnLupa.addEventListener('click', e => {
+        e.stopPropagation();
+        if (panelBusqueda.classList.contains('visible')) {
+            cerrarPanelBusqueda();
+            return;
+        }
+        abrirPanelBusqueda();
+    });
+
+    inputBusqueda.addEventListener('input', () => {
+        actualizarIndicadoresBusqueda(
+            Array.from(obtenerTarjetas()).filter(t => t.style.display !== 'none').length
+        );
+
+        if (!inputBusqueda.value.trim()) {
+            if (hayFiltroBusquedaActivo()) {
+                limpiarBusqueda();
+            } else {
+                if (resultadosBusqueda) resultadosBusqueda.hidden = true;
+                if (listaResultados) listaResultados.innerHTML = '';
+                panelBusqueda.classList.remove('con-resultados');
+            }
+            return;
+        }
+
+        if (hayFiltroBusquedaActivo()) {
+            textoBusquedaActivo = '';
+            aplicarFiltrosAlGrid();
+        }
+        actualizarSugerenciasBusqueda();
+    });
+
+    inputBusqueda.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            confirmarBusqueda();
+        }
+    });
+
+    inputBusqueda.addEventListener('search', () => {
+        if (!inputBusqueda.value) limpiarBusqueda();
+    });
+
+    document.addEventListener('click', e => {
+        if (!panelBusqueda.classList.contains('visible')) return;
+        const clickEnPanel = panelBusqueda.contains(e.target);
+        const clickEnLupa = btnLupa.contains(e.target);
+        if (!clickEnPanel && !clickEnLupa) cerrarPanelBusqueda();
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key !== 'Escape') return;
+
+        if (panelBusqueda.classList.contains('visible')) {
+            cerrarPanelBusqueda();
+            btnLupa.focus();
+            return;
+        }
+
+        if (hayFiltroBusquedaActivo()) {
+            limpiarBusqueda();
+        }
+    });
+}
+
+function abrirModal(
+    nombre,
+    marca,
+    tipo,
+    familia,
+    genero,
+    salida,
+    corazon,
+    fondo,
+    desc,
+    opinion,
+    nota,
+    precio,
+    imagen
+) {
+    document.getElementById('modal-nombre').textContent = nombre;
+    document.getElementById('modal-marca').textContent = marca;
+    document.getElementById('modal-tipo').textContent = tipo + ' · ' + familia + ' · ' + genero;
+    document.getElementById('modal-salida').textContent = 'Salida: ' + salida;
+    document.getElementById('modal-corazon').textContent = 'Corazón: ' + corazon;
+    document.getElementById('modal-fondo').textContent = 'Fondo: ' + fondo;
+    document.getElementById('modal-descripcion').textContent = desc;
+    document.getElementById('modal-opinion').textContent = '❝ ' + opinion + ' ❞';
+    document.getElementById('modal-nota').textContent = 'Mi nota: ' + nota;
+    document.getElementById('modal-precio').textContent = 'Precio: ' + precio + '€';
+    document.getElementById('modal-imagen').src = imagen;
+    document.getElementById('overlay').classList.add('visible');
+}
+
+function cerrarModal(e) {
     if (e.target.id === 'overlay') {
         const overlay = document.getElementById('overlay');
-        const modal = overlay.querySelector('.modal'); // buscamos el modal dentro
-
-        //añadimos la clase que hace la animación de bajar con esa animacion del css, la animación de cierre
-        modal.classList.add('modal-closing');
-
-        // esperamos ese tiempo de 300 milisegundos antes de ocultarlo todo, para que se lleve a cabo la animación
-        setTimeout(() => {
-            overlay.classList.remove('visible'); 
-            modal.classList.remove('modal-closing'); //limpiamos para la próxima apertura
-        }, 300); 
-    }
-}
-    
-//esta función arregla el problema que tenía con mi boton ATRÄS, ya que antes solo tenía la función creada para cerrar al clicar fuera de la pestaña del perfume
-    function cerrarPorBoton() {
-        const overlay = document.getElementById('overlay');
         const modal = overlay.querySelector('.modal');
-
-        //misma lógica que la función de antes 
         modal.classList.add('modal-closing');
-
         setTimeout(() => {
             overlay.classList.remove('visible');
             modal.classList.remove('modal-closing');
         }, 300);
     }
+}
 
+function cerrarPorBoton() {
+    const overlay = document.getElementById('overlay');
+    const modal = overlay.querySelector('.modal');
+    modal.classList.add('modal-closing');
+    setTimeout(() => {
+        overlay.classList.remove('visible');
+        modal.classList.remove('modal-closing');
+    }, 300);
+}

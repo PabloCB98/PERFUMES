@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body{
     margin: 0; /*que no tenga márgenes por ninguna parte */
     display: flex; /*le damos flexbox*/
@@ -9,33 +13,90 @@ body{
     overflow-x: hidden;/*con esto evito el scroll horizontal, ya que cualquier cosa que sobrepase el ancho se queda invisible*/
     background-image: url('../imagenes/varios/fondos/fondoMarron1.jpg'); /*inserto la imagen de fondo*/
     background-size: cover;/*hace que la imagen en este caso ocupe todo el body*/
+    background-attachment: fixed;
+    background-position: center;
 }
 
-.titulo_conjunto {
-    width: calc(100% - 100px); /*hace que el ancho de esto deje 50px a cada lado, es para la línea de debajo del título, simple estética*/
-    border-bottom: 2px solid rgba(255, 255, 255, 0.574);/*borde inferior de 2px de ancho, una línea sólida y con ese color y transparencia*/
-    padding-bottom: 20px;/*espacio inferior entre la parte inferior del texto y la línea estética*/
-    margin: 0 50px;/*deja margenes de 0px arriba y abajo y de 50px en izquierda y derecha*/
-    text-align: center; /*el texto se alinea hacia el centro de la pantalla*/
+:root {
+    --titulo-size-max: 80;
+    --titulo-size-min: 28;
+    --titulo-spacing-max: 15;
+    --titulo-spacing-min: 4;
 }
 
+/* Cabecera sticky: el título baja con el scroll y se compacta hasta la sección perfumes */
+.cabecera-hero {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.cabecera-hero__barra {
+    position: sticky;
+    top: 0;
+    z-index: 75;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: clamp(56px, 12vh, 90px) 24px 28px;
+    box-sizing: border-box;
+    text-align: center;
+    transition:
+        padding 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.4s ease,
+        backdrop-filter 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.cabecera-hero__barra::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(calc(100% - 100px), 920px);
+    height: 2px;
+    background: rgba(255, 255, 255, 0.45);
+    transition: opacity 0.4s ease, width 0.4s ease;
+    pointer-events: none;
+}
+
+.cabecera-hero__barra.titulo-compacto {
+    padding: 12px 20px 10px;
+    background: rgba(22, 18, 16, 0.62);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 6px 28px rgba(0, 0, 0, 0.28);
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.18);
+}
+
+.cabecera-hero__barra.titulo-compacto::after {
+    opacity: 0;
+    width: 0;
+}
 
 #titulo_principal {
-    display: block;/*es una obligación de guardar una fila para este bloque, ocupa el 100% del contenedor padre*/
-    text-align:center;
-    font-size: 80px; /*cambiamos el tamaño del texto*/
-    color: rgba(255, 255, 255, 0.733);/*le damos un nuevo color al texto*/
-    letter-spacing: 15px; /*le damos un espacio extra entre letras*/
-    text-shadow: 0px 4px 15px rgba(255, 255, 255, 0.304);/*efecto de soba del texto, 0px para qu no se mueva hacia los lados, 4px la sobra se 
-                                                            desplaza 4px hacia abajo y el 15px es el blur, como de borrosa es la sombra*/
-    margin: 60px auto 0 auto;/*lo empuja 60px hacia abajo desde el objeto superior, auto para que calcule automaticamente ek espacio derecho, 0 para
-    que no deje espacio inferior y no lo empuje desde abajo y auto para lo mismo que en derecha, en izquierda*/
-    text-transform: uppercase; /*el texto va a ir siempre en mayusculas*/
-    padding-bottom: 20px;/*espacio inferior desde el texto hasta el borde del contenedor*/
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    max-width: calc(100vw - 100px);
+    text-align: center;
+    font-size: calc(var(--titulo-size-max) * 1px);
+    color: rgba(255, 255, 255, 0.82);
+    letter-spacing: calc(var(--titulo-spacing-max) * 1px);
+    text-shadow: 0 4px 20px rgba(255, 255, 255, 0.22);
+    text-transform: uppercase;
+    line-height: 1.05;
+    will-change: font-size, letter-spacing;
+    transition: color 0.35s ease, text-shadow 0.35s ease;
+}
 
-    width: calc(100% - 200px);/*el ancho será de el total del ancho del navegador -100px a cada lado*/
-    max-width: none; /*el ancho maximo no está definido*/
-
+.cabecera-hero__barra.titulo-compacto #titulo_principal {
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 2px 12px rgba(255, 255, 255, 0.15);
 }
 
 .enlaces{
@@ -74,11 +135,19 @@ body{
 
 
 
-/*caja y botones de navegación, TODOS VERANO e INVIERNO*/
-nav {
-    display: flex; /*le volvemos a dar las propiedades de flexbox*/
-    justify-content: center; /*alineamos horizontalmente al centro*/
-    margin: 40px 0 20px 0; /*empujan a nuestro contenedor 40px desde arriba, 0px desde derecha, 20px desde abajo y 0px desde izquierda*/
+/*caja y botones de navegación, TODOS VERANO e INVIERNO + lupa de búsqueda*/
+.nav-principal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px 0 20px 0;
+}
+
+.nav-filtros-busqueda {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .botones-navegacion{
@@ -122,6 +191,332 @@ nav {
 }
 
 
+/* botón lupa (a la derecha de los filtros) */
+.btn-lupa {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 0.5px solid rgba(255, 255, 255, 0.4);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: rgba(255, 255, 255, 0.65);
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-lupa .material-symbols-outlined {
+    font-size: 22px;
+}
+
+.btn-lupa:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: white;
+    transform: scale(1.06);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-lupa.activa {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.55);
+    color: white;
+}
+
+.btn-lupa.busqueda-activa {
+    background: rgba(255, 255, 255, 0.28);
+    border-color: rgba(255, 255, 255, 0.7);
+    color: white;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25);
+}
+
+.btn-lupa.busqueda-activa::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+/* desplegable de búsqueda (estilo cápsula cristal) */
+.busqueda-perfumes {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: min(280px, 82vw);
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease, width 0.25s ease;
+    z-index: 20;
+}
+
+.busqueda-perfumes.con-resultados {
+    width: min(320px, 90vw);
+}
+
+.busqueda-perfumes.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.resultados-busqueda {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 0.5px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.resultados-busqueda__titulo {
+    margin: 0 0 8px 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+#lista-resultados-busqueda {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.resultado-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.resultado-item:hover,
+.resultado-item:focus-visible {
+    background: rgba(255, 255, 255, 0.16);
+    transform: translateX(3px);
+    outline: none;
+}
+
+.resultado-item__img {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.resultado-item__info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.resultado-item__nombre {
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.resultado-item__marca {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.resultado-item__temporada {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.resultados-busqueda__vacio {
+    margin: 6px 4px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+    text-align: center;
+}
+
+.busqueda-campo {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.busqueda-campo .input-busqueda {
+    padding-right: 40px;
+}
+
+.btn-limpiar-input {
+    position: absolute;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-limpiar-input:hover {
+    background: rgba(255, 255, 255, 0.28);
+    color: white;
+    transform: scale(1.08);
+}
+
+.btn-limpiar-input .material-symbols-outlined {
+    font-size: 18px;
+}
+
+/* [hidden] debe ganar a display:flex (si no, el banner se ve siempre) */
+.aviso-busqueda[hidden],
+.btn-limpiar-input[hidden],
+.resultados-busqueda[hidden] {
+    display: none !important;
+}
+
+.aviso-busqueda {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: min(92%, 720px);
+    margin: 0 auto 16px;
+    padding: 12px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    border: 0.5px solid rgba(255, 255, 255, 0.35);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+#aviso-busqueda-texto {
+    text-align: center;
+    line-height: 1.4;
+}
+
+.btn-quitar-busqueda {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 7px 14px;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.22);
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-quitar-busqueda:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: scale(1.04);
+}
+
+.btn-quitar-busqueda .material-symbols-outlined {
+    font-size: 16px;
+}
+
+.mensaje-vacio-grid,
+.mensaje-error-carga {
+    width: min(90%, 500px);
+    margin: 0 auto 30px;
+    padding: 16px 20px;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    border: 0.5px solid rgba(255, 255, 255, 0.25);
+}
+
+.input-busqueda {
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 0.5px solid rgba(255, 255, 255, 0.4);
+    border-radius: 999px;
+    padding: 10px 18px;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    outline: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.input-busqueda::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.input-busqueda:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.input-busqueda:focus {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.55);
+    color: white;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+}
+
+.input-busqueda::-webkit-search-cancel-button {
+    filter: invert(1) opacity(0.5);
+    cursor: pointer;
+}
+
+
 .contenedor_descripcion {
     background-color: rgba(255, 255, 255, 0);/*definimos solo el color del fondo*/
     backdrop-filter: blur(10px);/*emborrona lo que hay detrás del elemento*/
@@ -139,8 +534,8 @@ nav {
     cursor: default; /*no cambia a mano, se queda en flecha el ratón al pasar por encima de esta caja*/
 }
 .contenedor_descripcion:hover{
-    transform: scale(1.1);/*el elemento crece un 10% de su tamaño original*/
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.794); /*aplicamos la sombra a la caja en los tiempos anteriores*/
+    transform: scale(1.05);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
 }
 
 
@@ -181,6 +576,7 @@ desde un estado inicial a uno final, o también a través de pasos intermedios*/
     width: calc(100% - 40px); /*coge el 100% del ancho del contenedor y le resta 40px*/
     max-width: 1100px; /*ancho máximo del contenedor de 1100px*/
     margin: 40px auto;
+    scroll-margin-top: 72px;
 
     /* es la animacion, le decimos el nombre para enlazar la linea de tiempo, en este caso --image */
     view-timeline-name: --image;
@@ -192,25 +588,38 @@ desde un estado inicial a uno final, o también a través de pasos intermedios*/
     animation-range: entry 8% cover 20%;
 }
 
-.todos-perfumes div {
+.todos-perfumes .tarjeta-perfume {
     background: rgba(255, 255, 255, 0.241);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.37);
     border-radius: 16px;
     padding: 20px;
     text-align: center;
-    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    cursor: pointer;
+    scroll-margin-top: 100px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.4s ease;
 }
 
-.todos-perfumes div:hover{
+.todos-perfumes .tarjeta-perfume:hover{
     transform: scale(1.04);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.397);
+}
+
+@keyframes pulso-resaltado {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35), 0 20px 50px rgba(0, 0, 0, 0.45); }
+    50% { box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5), 0 24px 56px rgba(0, 0, 0, 0.5); }
+}
+
+.todos-perfumes .tarjeta-perfume.tarjeta-resaltada {
+    border-color: rgba(255, 255, 255, 0.85);
+    transform: scale(1.03);
+    animation: pulso-resaltado 1.2s ease 2;
 }
 
 .todos-perfumes h3 {
     font-size: 16px;
     font-weight: 600;
-    margin: 5 0 6px 0;
+    margin: 5px 0 6px 0;
     color: white;
 }
 
@@ -381,21 +790,53 @@ desde un estado inicial a uno final, o también a través de pasos intermedios*/
     color: white; 
 }
 
-.todos-perfumes div { 
-    cursor: pointer; 
-}
 
 /* Lo siguiente es para que funcione bien en móviles rambién, usando una media query que solo se aplica si la pantalla mide menos de 768px*/
 
 
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .contenedor_descripcion,
+    .tarjeta-perfume,
+    .resultado-item,
+    .btn-lupa,
+    .botones-navegacion a,
+    .btn-menu,
+    .btn-menu__barra,
+    .menu-lateral,
+    .menu-overlay,
+    .cabecera-hero__barra,
+    .cabecera-hero__barra::after {
+        transition: none;
+    }
+
+    .cabecera-hero__barra.titulo-compacto #titulo_principal {
+        transition: none;
+    }
+
+    .tarjeta-perfume.tarjeta-resaltada {
+        animation: none;
+    }
+}
+
 @media (max-width: 768px) {
     
-    /* aquí reducimos el tamaño del título para que quepa en el teléfono*/
+    :root {
+        --titulo-size-max: 42;
+        --titulo-size-min: 22;
+        --titulo-spacing-max: 6;
+        --titulo-spacing-min: 2;
+    }
+
+    .cabecera-hero__barra {
+        padding-top: 48px;
+    }
+
     #titulo_principal {
-        font-size: 40px;
-        letter-spacing: 5px;
-        width: 100%;
-        margin-top: 30px;
+        max-width: calc(100vw - 80px);
     }
 
     .enlaces{
@@ -408,8 +849,27 @@ desde un estado inicial a uno final, o también a través de pasos intermedios*/
     }
 
 
+    .nav-filtros-busqueda {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
     .botones-navegacion{
         margin: 0 auto; /*aseguramos que se centren*/
+    }
+
+    .busqueda-perfumes {
+        right: 50%;
+        transform: translateX(50%) translateY(-8px);
+        width: min(280px, 90vw);
+    }
+
+    .busqueda-perfumes.visible {
+        transform: translateX(50%) translateY(0);
+    }
+
+    .busqueda-perfumes.con-resultados {
+        width: min(320px, 92vw);
     }
     /* el grid lo pasamos a 1 columna en vez de 3, para que se vea perfecto */
     .todos-perfumes {
@@ -440,4 +900,334 @@ desde un estado inicial a uno final, o también a través de pasos intermedios*/
         padding: 1rem;
 
     }
+
+    .menu-lateral {
+        width: min(88vw, 340px);
+    }
+}
+
+
+/* ========== Menú lateral (estilo drawer + cristal) ========== */
+
+.menu-overlay[hidden] {
+    display: none !important;
+}
+
+body.menu-abierto {
+    overflow: hidden;
+}
+
+/* Botón hamburguesa (3 barritas) — fijo arriba a la izquierda */
+.btn-menu {
+    position: fixed;
+    top: 22px;
+    left: 22px;
+    z-index: 85;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    border: 0.5px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.btn-menu:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+
+.btn-menu__barra {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+}
+
+.btn-menu--activo .btn-menu__barra:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+}
+
+.btn-menu--activo .btn-menu__barra:nth-child(2) {
+    opacity: 0;
+    width: 0;
+}
+
+.btn-menu--activo .btn-menu__barra:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* Capa oscura detrás del menú */
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 88;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.menu-overlay--visible {
+    opacity: 1;
+}
+
+/* Panel lateral */
+.menu-lateral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 89;
+    display: flex;
+    flex-direction: column;
+    width: min(85vw, 380px);
+    height: 100vh;
+    height: 100dvh;
+    padding: 0;
+    background: rgba(28, 24, 22, 0.82);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border-right: 0.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0 20px 20px 0;
+    box-shadow: 8px 0 40px rgba(0, 0, 0, 0.35);
+    transform: translateX(-105%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.menu-lateral--abierto {
+    transform: translateX(0);
+}
+
+.menu-lateral__cabecera {
+    flex-shrink: 0;
+    padding: 24px 22px 12px;
+}
+
+.menu-lateral__cerrar {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    border: none;
+    background: none;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.menu-lateral__cerrar:hover {
+    color: white;
+}
+
+.menu-lateral__cerrar .material-symbols-outlined {
+    font-size: 20px;
+}
+
+/* Pestañas superiores (estilo píldora activa) */
+.menu-lateral__pestanas {
+    flex-shrink: 0;
+    padding: 0 22px 16px;
+}
+
+.menu-lateral__lista-pestanas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-lateral__pestana {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.65);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.menu-lateral__pestana:hover {
+    color: white;
+}
+
+.menu-lateral__pestana--activa {
+    background: rgba(255, 255, 255, 0.92);
+    color: rgba(20, 18, 16, 0.95);
+}
+
+/* Zona con scroll para el contenido */
+.menu-lateral__scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 22px 16px;
+}
+
+.menu-lateral__lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-lateral__lista--principal {
+    margin-bottom: 20px;
+}
+
+.menu-lateral__lista--principal .menu-lateral__slot {
+    min-height: 36px;
+    margin-bottom: 4px;
+}
+
+.menu-lateral__lista--secundaria .menu-lateral__slot {
+    min-height: 28px;
+    margin-bottom: 2px;
+}
+
+/* Huecos para enlaces (añadir <a> dentro de cada slot) */
+.menu-lateral__slot {
+    border-radius: 8px;
+    border: 1px dashed rgba(255, 255, 255, 0.12);
+    min-height: 24px;
+}
+
+.menu-lateral__slot:empty {
+    min-height: 32px;
+}
+
+.menu-lateral__lista--principal .menu-lateral__slot:not(:empty) {
+    border: none;
+    min-height: auto;
+}
+
+/* Enlaces principales (cuando los añadas): usar esta clase en <a> */
+.menu-lateral__enlace-principal {
+    display: block;
+    padding: 6px 0;
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    transition: opacity 0.2s ease;
+}
+
+.menu-lateral__enlace-principal:hover {
+    opacity: 0.75;
+}
+
+.menu-lateral__enlace-secundario {
+    display: block;
+    padding: 4px 0;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.menu-lateral__enlace-secundario:hover {
+    color: white;
+}
+
+/* Destacados — rejilla 2 columnas de pastillas */
+.menu-lateral__destacados {
+    margin-top: 8px;
+    padding-top: 20px;
+    border-top: 0.5px solid rgba(255, 255, 255, 0.15);
+}
+
+.menu-lateral__titulo-seccion {
+    margin: 0 0 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.02em;
+}
+
+.menu-lateral__contador {
+    font-size: 11px;
+    font-weight: 500;
+    vertical-align: super;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.menu-lateral__grid-destacados {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-lateral__slot-destacado {
+    min-height: 44px;
+    border-radius: 999px;
+    border: 1px dashed rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.menu-lateral__slot-destacado:empty {
+    min-height: 48px;
+}
+
+/* Pastilla destacada (cuando añadas contenido) */
+.menu-lateral__pastilla {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px 6px 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+.menu-lateral__pastilla:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.menu-lateral__pastilla img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Pie del menú */
+.menu-lateral__pie {
+    flex-shrink: 0;
+    padding: 16px 22px 24px;
+    border-top: 0.5px solid rgba(255, 255, 255, 0.15);
+}
+
+.menu-lateral__slot--pie {
+    min-height: 20px;
+    border: none;
+    margin: 0;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
 }
